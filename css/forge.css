@@ -1,0 +1,12 @@
+/* The forge family: the per-forge menu, the repository chip and the New-folder clone option.
+   Appended to the dashboard stylesheet after the components, so it may only ADD rules. */
+.forge-menu-repo { text-transform: none; font-family: var(--font-code); }
+.forge-menu-note { text-transform: none; font-weight: 400; opacity: .75; white-space: normal; }
+.forge-menu-note code { white-space: normal; overflow-wrap: anywhere; }
+.forge-unlinked { opacity: .75; }
+.forge-unlinked:hover { opacity: 1; }
+.pcard-meta .proj-forge-link { max-width: 13rem; }
+.proj-forge-link { white-space: nowrap; }
+.forge-items .uk-text-meta { margin-left: .4rem; }
+.folder-new-form .folder-forge-repo { display: none; }
+.folder-new-form .folder-forge:has(input[value="clone"]:checked) .folder-forge-repo { display: block; }
