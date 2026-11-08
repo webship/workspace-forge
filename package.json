@@ -1,13 +1,19 @@
 {
-  "name": "@webship/workspace-forge",
-  "version": "1.0.0",
+  "name": "@webship.co/workspace-forge",
+  "version": "1.0.0-alpha1",
   "description": "The forge family's shared base for Webship Workspace plugins: the ForgeProvider contract, and the row menu (repository, issues, pull requests, open a pull request), the repo chip, the clone option in New folder and the credential the dashboard uses for the host, registered through registerForge(api, forge).",
   "main": "dist/src/index.js",
   "types": "dist/src/index.d.ts",
-  "private": true,
   "license": "ISC",
-  "repository": "github:webship/workspace-forge",
-  "files": ["dist/src", "css", "README.md"],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/webship/workspace-forge.git"
+  },
+  "files": [
+    "dist/src",
+    "css",
+    "README.md"
+  ],
   "scripts": {
     "build": "tsc -p tsconfig.json",
     "prepare": "npm run build",
@@ -16,7 +22,10 @@
   },
   "devDependencies": {
     "@types/node": "^24.0.0",
-    "@webship/workspace-plugin-api": "github:webship/workspace-plugin-api#1.0.x",
+    "@webship.co/workspace-plugin-api": "^1.0.0-alpha1",
     "typescript": "^5.9.0"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }
