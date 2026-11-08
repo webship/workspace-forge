@@ -1,11 +1,11 @@
-# @webship/workspace-forge
+# @webship.co/workspace-forge
 
 The forge family's shared base for [Webship Workspace](https://github.com/webship/workspace)
-plugins. A forge plugin (`@webship/workspace-github`, `-gitlab`, `-bitbucket`) is one call plus its
+plugins. A forge plugin (`@webship.co/workspace-github`, `-gitlab`, `-bitbucket`) is one call plus its
 provider:
 
 ```ts
-import { registerForge } from '@webship/workspace-forge';
+import { registerForge } from '@webship.co/workspace-forge';
 export function register(api: PluginApi) { registerForge(api, provider(api)); }
 ```
 

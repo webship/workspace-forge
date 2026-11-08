@@ -9,7 +9,7 @@
 
 import fs from 'fs';
 import path from 'path';
-import type { ActionContext, Form, PluginApi, RowContext } from '@webship/workspace-plugin-api';
+import type { ActionContext, Form, PluginApi, RowContext } from '@webship.co/workspace-plugin-api';
 
 import type { ForgeItem, ForgeProvider, ForgeRepo } from './provider';
 

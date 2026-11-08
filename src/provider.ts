@@ -8,7 +8,7 @@
  * the clone option and the credential hook are the family's (registerForge).
  */
 
-import type { PluginLib } from '@webship/workspace-plugin-api';
+import type { PluginLib } from '@webship.co/workspace-plugin-api';
 
 /** A repository on the forge, as read from a git remote. */
 export interface ForgeRepo {
