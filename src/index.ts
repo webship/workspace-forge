@@ -81,7 +81,8 @@ export function registerForge(api: PluginApi, f: ForgeProvider): void {
           <li><a href ${modal('pulls')}><span uk-icon="icon: git-branch; ratio: .7"></span> Open ${esc(f.pullsLabel.toLowerCase())}</a></li>
           <li class="uk-nav-divider"></li>
           ${branch && f.newPullCommand
-    ? `<li><a href hx-post="${post('new-pull')}" ${vals()}><span uk-icon="icon: push; ratio: .7"></span> Open a ${esc(f.pullsLabel.toLowerCase().replace(/s$/, ''))} from ${esc(branch)}…</a></li>`
+    ? `<li><a href hx-post="${post('new-pull')}" ${vals()}
+              hx-confirm="Push ${esc(branch)} to ${esc(repo.path)} on ${esc(f.title)} and open a ${esc(f.pullsLabel.toLowerCase().replace(/s$/, ''))} from it?"><span uk-icon="icon: push; ratio: .7"></span> Open a ${esc(f.pullsLabel.toLowerCase().replace(/s$/, ''))} from ${esc(branch)}…</a></li>`
     : `<li><a href="${esc(u.newPull(branch || ''))}" target="_blank" rel="noopener"><span uk-icon="icon: push; ratio: .7"></span> New ${esc(f.pullsLabel.toLowerCase().replace(/s$/, ''))}${branch ? ` from ${esc(branch)}` : ''}</a></li>`}
           <li><a href="${esc(u.newIssue)}" target="_blank" rel="noopener"><span uk-icon="icon: plus-circle; ratio: .7"></span> New issue</a></li>
           <li><a href="#" class="copy-cmd" data-copy="${esc(f.cloneUrl(repo.path))}" title="Copy the clone URL"><span uk-icon="icon: copy; ratio: .7"></span> Copy the clone URL</a></li>
