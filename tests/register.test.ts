@@ -79,6 +79,8 @@ test('register() gives the forge its credential hook, menu, chip, actions, style
   const html = calls.rowMenus.acme.fn(ctx);
   assert.match(html, /webship\/site1 · feature-x/);
   assert.match(html, /Open a pull request from feature-x/);
+  // It pushes the branch: the item asks first, and says what goes where.
+  assert.match(html, /hx-confirm="Push feature-x to webship\/site1 on [^"]+ and open a pull request from it\?"/);
   assert.match(html, /Open the repository/);
   assert.match(html, /data-copy="https:\/\/acme\.test\/webship\/site1\.git"/);
   assert.match(calls.chips[0](ctx), /proj-acme-link/);
