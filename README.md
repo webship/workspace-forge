@@ -16,3 +16,7 @@ open a request from the current branch in a terminal, copy the clone URL), the r
 the card, and the "Clone a repository into this folder" option of New folder. The `ForgeProvider`
 says what differs between forges: the host, the CLI, how a remote URL reads, where the pages are,
 how the open issues and requests are listed, the command that opens a request, the clone URL.
+
+A provider may also put entries of its own in the row menu with `menuItems(ctx)`: `<li>` items shown after "Open the
+repository". A tracker of the same service (`@webship.co/workspace-tracker`) puts "Issues — get, analyze, work…" there, and
+its entries take the place of the plain "Open issues" list, so the service keeps one button. Without it nothing changes.
