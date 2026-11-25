@@ -133,3 +133,20 @@ test('the New-folder option clones the named repository into the new folder, and
   assert.strictEqual(s.problem('dev', { acme: 'clone', acme_repo: 'bad spec' }), 'owner/name or a URL');
   assert.strictEqual(s.problem('dev', { acme: 'clone', acme_repo: 'webship/site2' }), '');
 });
+
+test('the provider may put entries of its own in the menu: they replace the plain issues list, and nothing changes without them', () => {
+  const root = tree();
+  const ctx: any = { key: 'dev', project: 'site1', dir: path.join(root, 'dev'), meta: {}, allowed: new Set(), vals: () => '' };
+  const { api, calls } = fakeApi(root);
+  registerForge(api, { ...forge(), menuItems: (c) => `<li><a href="/x/${c.key}/${c.project}">Issues — get, analyze, work…</a></li>` });
+  const html = calls.rowMenus.acme.fn(ctx);
+  assert.match(html, /<li><a href="\/x\/dev\/site1">Issues — get, analyze, work…<\/a><\/li>/);
+  assert.ok(!/Open issues/.test(html), 'the tracker list takes the place of the plain one');
+  assert.ok(html.indexOf('Open the repository') < html.indexOf('Issues — get'), 'after the repository');
+  const { api: a2, calls: c2 } = fakeApi(root);
+  registerForge(a2, { ...forge(), menuItems: () => '' });
+  assert.match(c2.rowMenus.acme.fn(ctx), /Open issues/, 'an empty answer keeps the plain list');
+  const { api: a3, calls: c3 } = fakeApi(root);
+  registerForge(a3, { ...forge(), menuItems: () => { throw new Error('boom'); } });
+  assert.match(c3.rowMenus.acme.fn(ctx), /Open issues/, 'a provider that throws adds nothing');
+});

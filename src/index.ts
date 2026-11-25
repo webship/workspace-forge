@@ -63,13 +63,17 @@ export function registerForge(api: PluginApi, f: ForgeProvider): void {
 
   // ---- The menu on a project row ---------------------------------------------------------------
 
-  api.addRowMenu(f.id, { label: f.label, row: 0 }, ({ key, project, dir, vals }: RowContext) => {
+  api.addRowMenu(f.id, { label: f.label, row: 0 }, (ctx: RowContext) => {
+    const { key, project, dir, vals } = ctx;
     const pdir = path.join(dir, project);
     if (!fs.existsSync(path.join(pdir, '.git'))) return null;
     const repo = repoOnForge(f, pdir);
     if (!repo) return null;
     const branch = gitBranch(pdir);
     const u = f.urls(repo);
+    // The plugin's own entries (a tracker of the same service) replace the plain issues list; a provider that throws adds nothing.
+    let own = '';
+    try { own = f.menuItems ? String(f.menuItems(ctx) || '') : ''; } catch (_) { own = ''; }
     const caption = repo.remote === 'origin' ? 'origin' : repo.remote;
     const modal = (name: string) => `hx-post="${post(name)}" hx-vals='{"workspace":"${esc(key)}","projectName":"${esc(project)}"}' hx-target="#editor-modal-body" hx-swap="innerHTML"`;
     return `<span class="act-with-status"><div class="uk-inline act-menu act-menu-${esc(f.id)} act-menu-forge">
@@ -77,7 +81,7 @@ export function registerForge(api: PluginApi, f: ForgeProvider): void {
         <div uk-dropdown="mode: click; pos: bottom-right"><ul class="uk-nav uk-dropdown-nav">
           <li class="uk-nav-header forge-menu-repo" data-group="repository">${esc(repo.path)}${branch ? ` · ${esc(branch)}` : ''}</li>
           <li><a href="${esc(repo.web)}" target="_blank" rel="noopener"><span uk-icon="icon: link-external; ratio: .7"></span> Open the repository</a></li>
-          <li><a href ${modal('issues')}><span uk-icon="icon: warning; ratio: .7"></span> Open issues</a></li>
+          ${own || `<li><a href ${modal('issues')}><span uk-icon="icon: warning; ratio: .7"></span> Open issues</a></li>`}
           <li><a href ${modal('pulls')}><span uk-icon="icon: git-branch; ratio: .7"></span> Open ${esc(f.pullsLabel.toLowerCase())}</a></li>
           <li class="uk-nav-divider"></li>
           ${branch && f.newPullCommand

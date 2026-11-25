@@ -8,7 +8,7 @@
  * the clone option and the credential hook are the family's (registerForge).
  */
 
-import type { PluginLib } from '@webship.co/workspace-plugin-api';
+import type { PluginLib, RowContext } from '@webship.co/workspace-plugin-api';
 
 /** A repository on the forge, as read from a git remote. */
 export interface ForgeRepo {
@@ -62,4 +62,9 @@ export interface ForgeProvider {
   clone: { pattern: RegExp; placeholder: string; help: string };
   /** Where the token comes from, for the message when there is none. */
   tokenHint: string;
+  /**
+   * Entries of the plugin's own for this row's menu (`<li>` items), shown after "Open the repository": a tracker of the same
+   * service puts "Issues — get, analyze, work…" here. When it answers, its entries take the place of the plain "Open issues".
+   */
+  menuItems?: (ctx: RowContext) => string;
 }
